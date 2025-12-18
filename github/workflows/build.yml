@@ -3,7 +3,7 @@ name: Eureka Server JAR
 on:
   push:
     branches:
-      - master   # runs only when code is pushed to master
+      - master  # change to main if needed
 
 jobs:
   build:
@@ -16,8 +16,16 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '17'   # adjust if your project uses a different version
+          java-version: '17'
           distribution: 'temurin'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
       - name: Build with Maven
         run: mvn clean package -DskipTests
