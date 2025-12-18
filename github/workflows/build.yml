@@ -3,7 +3,7 @@ name: Eureka Server JAR
 on:
   push:
     branches:
-      - master   # runs only when code is pushed to main
+      - master   # runs only when code is pushed to master
 
 jobs:
   build:
